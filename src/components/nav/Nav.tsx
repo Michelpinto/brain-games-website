@@ -9,7 +9,7 @@ const Nav: React.FC = () => {
       <Link to='/WordSearch'>
         <button>Word search</button>
       </Link>
-      <Link to='/MemoryGame'>
+      <Link to='/levels'>
         <button>memory card</button>
       </Link>
     </Container>
