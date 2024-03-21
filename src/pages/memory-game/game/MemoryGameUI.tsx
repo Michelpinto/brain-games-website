@@ -16,7 +16,25 @@ const MemoryGameUI: React.FC<IProps> = ({
   handleClick,
   handleReset,
 }) => {
-  const columns = cards.length === 20 ? 5 : 4;
+  let columns;
+
+  switch (cards.length) {
+    case 20:
+      columns = 5;
+      break;
+    case 24:
+      columns = 6;
+      break;
+    case 30:
+      columns = 6;
+      break;
+    case 36:
+      columns = 6;
+      break;
+    default:
+      columns = 4;
+      break;
+  }
 
   return (
     <Main>

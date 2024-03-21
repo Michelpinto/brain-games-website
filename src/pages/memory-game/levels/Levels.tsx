@@ -27,6 +27,15 @@ const Levels: React.FC = () => {
           <Link to='/levels/20'>
             <li>20 cards</li>
           </Link>
+          <Link to='/levels/24'>
+            <li>24 cards</li>
+          </Link>
+          <Link to='/levels/30'>
+            <li>30 cards</li>
+          </Link>
+          <Link to='/levels/36'>
+            <li>36 cards</li>
+          </Link>
         </ul>
       </section>
     </Main>

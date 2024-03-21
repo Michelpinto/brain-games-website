@@ -11,10 +11,23 @@ export interface Card {
 const initializeCards = (level: string): Card[] => {
   let numCards = 12; // Default level is 12 cards
 
-  if (level === '/levels/16') {
-    numCards = 16;
-  } else if (level === '/levels/20') {
-    numCards = 20;
+  switch (level) {
+    case '/levels/16':
+      numCards = 16;
+      break;
+    case '/levels/20':
+      numCards = 20;
+      break;
+    case '/levels/24':
+      numCards = 24;
+      break;
+    case '/levels/30':
+      numCards = 30;
+      break;
+    case '/levels/36':
+      numCards = 36;
+      break;
+    default:
   }
 
   const uniqueItems = [
@@ -30,6 +43,13 @@ const initializeCards = (level: string): Card[] => {
     '🌳',
     '🍕',
     '🎈',
+    '🚎',
+    '🔑',
+    '🦠',
+    '💣',
+    '💡',
+    '🔋',
+    '⏳',
   ];
   const arrayPairs = [
     ...uniqueItems.slice(0, numCards / 2),
@@ -57,7 +77,6 @@ const MemoryGame: React.FC = () => {
   const handleClick = (index: number) => {
     const updatedCards = [...cards];
 
-    // Ignore click if the card is already flipped or matched
     if (updatedCards[index].flipped || updatedCards[index].matched) {
       return;
     }
