@@ -25,7 +25,8 @@ export const Main = styled.main`
     & li {
       font-size: 1.8rem;
       padding: 1rem 4rem;
-      background-color: #5555;
+      background-color: inherit;
+      border: 1px solid #f5f5f5;
       border-radius: 0.5rem;
     }
   }

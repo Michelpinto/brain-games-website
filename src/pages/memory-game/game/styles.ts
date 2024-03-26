@@ -42,9 +42,16 @@ export const CardWrapper = styled.div`
   }
 `;
 
+export const Text = styled.p`
+  font-size: 2rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #1d1d1d;
+`;
+
 export const Button = styled.button`
-  margin-top: 3rem;
-  text-align: center;
   padding: 0.5rem 2rem;
   border-radius: 1rem;
   font-weight: 1.8rem;
@@ -63,6 +70,16 @@ export const CardFace = styled.div`
   transition: 0.5s;
 `;
 
+export const Container = styled.div`
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  align-items: flex-end;
+`;
+
 export const FrontFace = styled(CardFace)`
   display: flex;
   align-items: center;
@@ -77,4 +94,27 @@ export const BackFace = styled(CardFace)`
   align-items: center;
   justify-content: center;
   font-size: 4rem;
+`;
+
+export const InsideContainer = styled.div`
+  padding: 2rem;
+  color: #1d1d1d;
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+`;
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
 `;
