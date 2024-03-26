@@ -48,15 +48,22 @@ export const Text = styled.p`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #1d1d1d;
+  color: #f5f5f5;
 `;
 
 export const Button = styled.button`
-  padding: 0.5rem 2rem;
-  border-radius: 1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 0.8rem;
   font-weight: 1.8rem;
   cursor: pointer;
-  border: 1px solid #1d1d1d;
+  border: 1px solid #f5f5f5;
+  color: #f5f5f5;
+  background-color: inherit;
+
+  &.modalBtn {
+    border: 1px solid #1d1d1d;
+    color: #1d1d1d;
+  }
 `;
 
 export const CardFace = styled.div`
@@ -72,7 +79,8 @@ export const CardFace = styled.div`
 
 export const Container = styled.div`
   padding: 2rem;
-  background-color: #f5f5f5;
+  background-color: inherit;
+  border: 1px solid #f5f5f5;
   border-radius: 1rem;
   display: flex;
   justify-content: space-between;

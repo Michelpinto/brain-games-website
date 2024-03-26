@@ -26,6 +26,7 @@ interface IProps {
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   revealCards: boolean;
+  handleNextLevel: () => void;
 }
 
 const MemoryGameUI: React.FC<IProps> = ({
@@ -38,6 +39,7 @@ const MemoryGameUI: React.FC<IProps> = ({
   showModal,
   setShowModal,
   revealCards,
+  handleNextLevel,
 }) => {
   let columns;
 
@@ -110,7 +112,9 @@ const MemoryGameUI: React.FC<IProps> = ({
                 Repeat game
               </Button>
             ) : (
-              <Button>Next level</Button>
+              <Button className='modalBtn' onClick={handleNextLevel}>
+                Next level
+              </Button>
             )}
           </InsideContainer>
         </Modal>

@@ -12,19 +12,19 @@ const initializeCards = (level: string): Card[] => {
   let numCards = 12; // Default level is 12 cards
 
   switch (level) {
-    case '/levels/16':
+    case '/levels/2':
       numCards = 16;
       break;
-    case '/levels/20':
+    case '/levels/3':
       numCards = 20;
       break;
-    case '/levels/24':
+    case '/levels/4':
       numCards = 24;
       break;
-    case '/levels/30':
+    case '/levels/5':
       numCards = 30;
       break;
-    case '/levels/36':
+    case '/levels/6':
       numCards = 36;
       break;
     default:
@@ -79,6 +79,17 @@ const MemoryGame: React.FC = () => {
   const [message, setMessage] = useState('');
   const [revealCards, setRevealCards] = useState(true);
   const timerRef = useRef<number>(0);
+  const [level, setLevel] = useState<number>(1);
+
+  const handleNextLevel = () => {
+    const nextLevel = level + 1;
+    setLevel(nextLevel);
+    setCards(initializeCards(`/levels/${nextLevel}`));
+    setMisses(0);
+    setMoves(0);
+    setShowModal(false);
+    setMessage('');
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -167,6 +178,7 @@ const MemoryGame: React.FC = () => {
       showModal={showModal}
       setShowModal={setShowModal}
       revealCards={revealCards}
+      handleNextLevel={handleNextLevel}
     />
   );
 };
