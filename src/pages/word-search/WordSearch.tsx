@@ -1,20 +1,12 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { Main } from './styles';
 
 const WordSearch: React.FC = () => {
   return (
-    <main>
-      <h1>Word search game</h1>
-      <div>
-        <p>Hello world</p>
-        <p>Hello world</p>
-        <p>Hello world</p>
-        <p>Hello world</p>
-        <p>Hello world</p>
-        <p>Hello world</p>
-      </div>
-    </main>
+    <Main>
+      <h1>Currently cooking something... 👨🏽‍💻👨🏾‍🍳</h1>
+    </Main>
   );
 };
 

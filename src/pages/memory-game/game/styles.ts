@@ -51,6 +51,11 @@ export const Text = styled.p`
   color: #f5f5f5;
 `;
 
+export const DivBtns = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
 export const Button = styled.button`
   padding: 0.8rem 2rem;
   border-radius: 0.8rem;
@@ -59,6 +64,14 @@ export const Button = styled.button`
   border: 1px solid #f5f5f5;
   color: #f5f5f5;
   background-color: inherit;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  & svg {
+    font-size: 1.6rem;
+  }
 
   &.modalBtn {
     border: 1px solid #1d1d1d;
