@@ -79,12 +79,18 @@ const MemoryGame: React.FC = () => {
   const [message, setMessage] = useState('');
   const [revealCards, setRevealCards] = useState(true);
   const timerRef = useRef<number>(0);
+  const newLvlTimerRef = useRef<number>(0);
   const [level, setLevel] = useState<number>(1);
 
   const handleNextLevel = () => {
+    setRevealCards(true);
     const nextLevel = level + 1;
     setLevel(nextLevel);
     setCards(initializeCards(`/levels/${nextLevel}`));
+    newLvlTimerRef.current = setTimeout(() => {
+      setRevealCards(false);
+      console.log(`happening`);
+    }, 1500);
     setMisses(0);
     setMoves(0);
     setShowModal(false);
@@ -132,16 +138,14 @@ const MemoryGame: React.FC = () => {
 
     const allMatched = updatedCards.every((card) => card.matched);
     if (allMatched) {
-      const movesMinusMisses = Math.abs(moves - misses);
+      const movesMinusMisses = moves - misses;
 
-      if (movesMinusMisses <= 5) {
+      if (misses > movesMinusMisses && moves < 15) {
         setShowModal(true);
         setMessage(`You struggled a bit 😵‍💫. Would you like to repeat?`);
       } else {
         setShowModal(true);
-        setMessage(
-          `Congrats 🥳 🚀, you did great. You got ${misses} misses on ${moves} moves. Advance to next level!`
-        );
+        setMessage(`Congrats 🥳 🚀, you did great. Advance to next level!`);
       }
     }
 
@@ -154,17 +158,19 @@ const MemoryGame: React.FC = () => {
 
   const handleReset = () => {
     setRevealCards(true);
-    setCards(initializeCards(location.pathname));
+    setCards(initializeCards(`/levels/${level}`));
     timerRef.current = setTimeout(() => {
       setRevealCards(false);
-      console.log(`happening`);
     }, 1500);
     setMisses(0);
     setMoves(0);
   };
 
   useEffect(() => {
-    return () => clearTimeout(timerRef.current);
+    return () => {
+      clearTimeout(timerRef.current);
+      clearTimeout(newLvlTimerRef.current);
+    };
   }, []);
 
   return (
