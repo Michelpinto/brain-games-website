@@ -1,5 +1,9 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { IoChevronBackOutline } from 'react-icons/io5';
+import {
+  IoChevronBackOutline,
+  IoRefreshOutline,
+  IoChevronForwardOutline,
+} from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
 import {
@@ -7,6 +11,7 @@ import {
   CardWrapper,
   Container,
   Div,
+  DivBtns,
   FrontFace,
   InsideContainer,
   Main,
@@ -103,18 +108,39 @@ const MemoryGameUI: React.FC<IProps> = ({
           <InsideContainer>
             {message}
             {Math.abs(moves - misses) <= 5 ? (
-              <Button
-                onClick={() => {
-                  handleReset();
-                  setShowModal(false);
-                }}
-              >
-                Repeat game
-              </Button>
+              <DivBtns>
+                <Button
+                  onClick={() => {
+                    handleReset();
+                    setShowModal(false);
+                  }}
+                  className='modalBtn'
+                >
+                  Repeat game
+                  <IoRefreshOutline />
+                </Button>
+                <Button className='modalBtn' onClick={handleNextLevel}>
+                  Next level
+                  <IoChevronForwardOutline />
+                </Button>
+              </DivBtns>
             ) : (
-              <Button className='modalBtn' onClick={handleNextLevel}>
-                Next level
-              </Button>
+              <DivBtns>
+                <Button
+                  onClick={() => {
+                    handleReset();
+                    setShowModal(false);
+                  }}
+                  className='modalBtn'
+                >
+                  Repeat game
+                  <IoRefreshOutline />
+                </Button>
+                <Button className='modalBtn' onClick={handleNextLevel}>
+                  Next level
+                  <IoChevronForwardOutline />
+                </Button>
+              </DivBtns>
             )}
           </InsideContainer>
         </Modal>
