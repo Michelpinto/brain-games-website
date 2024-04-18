@@ -84,7 +84,8 @@ const MemoryGame: React.FC = () => {
 
   const handleNextLevel = () => {
     setRevealCards(true);
-    const nextLevel = level + 1;
+    const parsedLevel = parseInt(location.pathname.split('/').pop() || '1', 10);
+    const nextLevel = parsedLevel + 1;
     setLevel(nextLevel);
     setCards(initializeCards(`/levels/${nextLevel}`));
     newLvlTimerRef.current = setTimeout(() => {
@@ -153,7 +154,9 @@ const MemoryGame: React.FC = () => {
   };
 
   useEffect(() => {
-    setCards(initializeCards(location.pathname));
+    const parsedLevel = parseInt(location.pathname.split('/').pop() || '1', 10);
+    setLevel(parsedLevel);
+    setCards(initializeCards(`/levels/${parsedLevel}`));
   }, [location.pathname]);
 
   const handleReset = () => {
