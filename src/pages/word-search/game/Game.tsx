@@ -201,13 +201,13 @@ const Game: React.FC = () => {
     });
 
     for (let row = 0; row < 14; row++) {
-      // for (let col = 0; col < 12; col++) {
-      //   if (grid[row][col] === '') {
-      //     grid[row][col] = String.fromCharCode(
-      //       65 + Math.floor(Math.random() * 26)
-      //     );
-      //   }
-      // }
+      for (let col = 0; col < 12; col++) {
+        if (grid[row][col] === '') {
+          grid[row][col] = String.fromCharCode(
+            65 + Math.floor(Math.random() * 26)
+          );
+        }
+      }
     }
 
     return grid;
