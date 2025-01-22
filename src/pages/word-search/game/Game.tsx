@@ -63,6 +63,9 @@ const Game: React.FC = () => {
         13
       )
     );
+    setShuffleAnimals(
+      shuffleArray(animals.map((animal) => animal.toUpperCase())).slice(0, 13)
+    );
   }, []);
 
   // Array shuffle
@@ -208,13 +211,13 @@ const Game: React.FC = () => {
     });
 
     for (let row = 0; row < 14; row++) {
-      // for (let col = 0; col < 12; col++) {
-      //   if (grid[row][col] === '') {
-      //     grid[row][col] = String.fromCharCode(
-      //       65 + Math.floor(Math.random() * 26)
-      //     );
-      //   }
-      // }
+      for (let col = 0; col < 12; col++) {
+        if (grid[row][col] === '') {
+          grid[row][col] = String.fromCharCode(
+            65 + Math.floor(Math.random() * 26)
+          );
+        }
+      }
     }
 
     return grid;
@@ -240,11 +243,7 @@ const Game: React.FC = () => {
     return rowDiff <= 1 && colDiff <= 1;
   };
 
-  const handleLetterClick = (
-    letter: string,
-    rowIndex: number,
-    colIndex: number
-  ) => {
+  const handleLetterClick = (rowIndex: number, colIndex: number) => {
     const newSelectedLetters: [number, number][] = [
       ...selectedLetters,
       [rowIndex, colIndex],
@@ -322,9 +321,7 @@ const Game: React.FC = () => {
                   return (
                     <span
                       key={`${rowIndex}-${colIndex}`}
-                      onClick={() =>
-                        handleLetterClick(cell, rowIndex, colIndex)
-                      }
+                      onClick={() => handleLetterClick(rowIndex, colIndex)}
                       style={{
                         cursor: 'pointer',
                         backgroundColor: selectedLetters.some(
