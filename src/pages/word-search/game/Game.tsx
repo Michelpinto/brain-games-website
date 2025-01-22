@@ -221,12 +221,6 @@ const Game: React.FC = () => {
   };
 
   const wordsArray = useMemo(() => {
-    // if (topic === 'Fruits') {
-    //   return shuffleFruits;
-    // } else if (topic === 'Countries') {
-    //   return shuffleCountries;
-    // }
-
     if (topic === 'Fruits') return shuffleFruits;
     if (topic === 'Countries') return shuffleCountries;
     if (topic === 'Animals') return shuffleAnimals;
@@ -292,12 +286,6 @@ const Game: React.FC = () => {
   useEffect(() => {
     if (foundWords.length === words.length && words.length > 0) {
       setTimeout(() => {
-        // const repeat = window.confirm(
-        //   'You found all the words! Would you like to repeat?'
-        // );
-        // if (repeat) {
-        //   restartGame();
-        // }
         setShowModal(true);
       }, 100);
     }
@@ -317,7 +305,6 @@ const Game: React.FC = () => {
                 row.map((cell, colIndex) => {
                   const cellColor = Object.entries(greyedCells).find(
                     ([word, positions]) => {
-                      // console.log('Word:', word, 'Positions:', positions);
                       word;
 
                       if (

@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Div, Main, Section } from './styles';
-// import Game from './game/Game';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
 const currentTopics = ['Countries', 'Fruits', 'Animals'];
 
 const WordSearch: React.FC = () => {
-  const [selectedTopic, setSelectedTopic] = useState('');
-  // const [words, setWords] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const handleTopicSelection = (topic: string) => {
-    setSelectedTopic(topic);
     navigate(`/WordSearch/${topic}`);
   };
 
