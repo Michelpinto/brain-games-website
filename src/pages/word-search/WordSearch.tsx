@@ -5,7 +5,7 @@ import { Div, Main, Section } from './styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
-const currentTopics = ['Countries', 'Fruits', 'Create your own'];
+const currentTopics = ['Countries', 'Fruits', 'Animals'];
 
 const WordSearch: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState('');

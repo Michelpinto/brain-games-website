@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { countries, fruits } from '../topics';
+import { countries, fruits, animals } from '../topics';
 
-import { Container, Main, RestartBtn, Section } from './gameStyles';
+import { Container, Main, Modal, RestartBtn, Section } from './gameStyles';
 import { Link, useParams } from 'react-router-dom';
-import { IoChevronBackOutline } from 'react-icons/io5';
+import { IoChevronBackOutline, IoRefreshOutline } from 'react-icons/io5';
 
 const Game: React.FC = () => {
   const { topic } = useParams<{ topic: string }>();
@@ -15,10 +15,12 @@ const Game: React.FC = () => {
   const [foundWords, setFoundWords] = useState<string[]>([]);
   const [shuffleCountries, setShuffleCountries] = useState<string[]>([]);
   const [shuffleFruits, setShuffleFruits] = useState<string[]>([]);
+  const [shuffleAnimals, setShuffleAnimals] = useState<string[]>([]);
   const [greyedCells, setGreyedCells] = useState<{
     [word: string]: [number, number][];
   }>({});
   const [wordColors, setWordColors] = useState<{ [key: string]: string }>({});
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setShuffleFruits(
@@ -29,6 +31,9 @@ const Game: React.FC = () => {
         0,
         13
       )
+    );
+    setShuffleAnimals(
+      shuffleArray(animals.map((animal) => animal.toUpperCase())).slice(0, 13)
     );
   }, []);
 
@@ -43,11 +48,12 @@ const Game: React.FC = () => {
   };
 
   // Restarts the game by resetting found words and selected letters
-  const restartGame = () => {
+  const restartGame = useCallback(() => {
     setSelectedLetters([]);
     setCurrentWord('');
     setFoundWords([]);
     setGreyedCells({});
+    setWordColors({});
     setShuffleFruits(
       shuffleArray(fruits.map((fruit) => fruit.toUpperCase())).slice(0, 13)
     );
@@ -57,7 +63,7 @@ const Game: React.FC = () => {
         13
       )
     );
-  };
+  }, []);
 
   // Array shuffle
   const shuffleArray = (array: string[]) => {
@@ -81,7 +87,8 @@ const Game: React.FC = () => {
     case 'Fruits':
       words = shuffleFruits;
       break;
-    case 'Create your own':
+    case 'Animals':
+      words = shuffleAnimals;
       break;
     default:
       break;
@@ -201,26 +208,31 @@ const Game: React.FC = () => {
     });
 
     for (let row = 0; row < 14; row++) {
-      for (let col = 0; col < 12; col++) {
-        if (grid[row][col] === '') {
-          grid[row][col] = String.fromCharCode(
-            65 + Math.floor(Math.random() * 26)
-          );
-        }
-      }
+      // for (let col = 0; col < 12; col++) {
+      //   if (grid[row][col] === '') {
+      //     grid[row][col] = String.fromCharCode(
+      //       65 + Math.floor(Math.random() * 26)
+      //     );
+      //   }
+      // }
     }
 
     return grid;
   };
 
   const wordsArray = useMemo(() => {
-    if (topic === 'Fruits') {
-      return shuffleFruits;
-    } else if (topic === 'Countries') {
-      return shuffleCountries;
-    }
+    // if (topic === 'Fruits') {
+    //   return shuffleFruits;
+    // } else if (topic === 'Countries') {
+    //   return shuffleCountries;
+    // }
+
+    if (topic === 'Fruits') return shuffleFruits;
+    if (topic === 'Countries') return shuffleCountries;
+    if (topic === 'Animals') return shuffleAnimals;
+
     return [];
-  }, [topic, shuffleFruits, shuffleCountries]);
+  }, [topic, shuffleFruits, shuffleCountries, shuffleAnimals]);
 
   const grid = useMemo(() => generateGridWithWords(wordsArray), [wordsArray]);
 
@@ -278,75 +290,110 @@ const Game: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('Greyed cells:', greyedCells);
-  }, [greyedCells]);
+    if (foundWords.length === words.length && words.length > 0) {
+      setTimeout(() => {
+        // const repeat = window.confirm(
+        //   'You found all the words! Would you like to repeat?'
+        // );
+        // if (repeat) {
+        //   restartGame();
+        // }
+        setShowModal(true);
+      }, 100);
+    }
+  }, [foundWords, words, restartGame]);
 
   return (
-    <Main>
-      <Link to='/WordSearch'>
-        <IoChevronBackOutline />
-      </Link>
-      <Container>
-        <h1>{topic}</h1>
-        <Section>
-          <div>
-            {grid.map((row, rowIndex) =>
-              row.map((cell, colIndex) => {
-                const cellColor = Object.entries(greyedCells).find(
-                  ([word, positions]) => {
-                    console.log('Word:', word, 'Positions:', positions);
+    <>
+      <Main>
+        <Link to='/WordSearch'>
+          <IoChevronBackOutline />
+        </Link>
+        <Container>
+          <h1>{topic}</h1>
+          <Section>
+            <div>
+              {grid.map((row, rowIndex) =>
+                row.map((cell, colIndex) => {
+                  const cellColor = Object.entries(greyedCells).find(
+                    ([word, positions]) => {
+                      // console.log('Word:', word, 'Positions:', positions);
+                      word;
 
-                    if (
-                      Array.isArray(positions) &&
-                      positions.every((pos) => Array.isArray(pos))
-                    ) {
-                      return positions.some(
-                        ([r, c]) => r === rowIndex && c === colIndex
-                      );
+                      if (
+                        Array.isArray(positions) &&
+                        positions.every((pos) => Array.isArray(pos))
+                      ) {
+                        return positions.some(
+                          ([r, c]) => r === rowIndex && c === colIndex
+                        );
+                      }
+                      return false;
                     }
-                    return false;
-                  }
-                )?.[0];
+                  )?.[0];
 
-                return (
-                  <span
-                    key={`${rowIndex}-${colIndex}`}
-                    onClick={() => handleLetterClick(cell, rowIndex, colIndex)}
-                    style={{
-                      cursor: 'pointer',
-                      backgroundColor: selectedLetters.some(
-                        ([row, col]) => row === rowIndex && col === colIndex
-                      )
-                        ? 'lightblue'
-                        : cellColor
-                        ? wordColors[cellColor]
-                        : 'inherit',
-                    }}
+                  return (
+                    <span
+                      key={`${rowIndex}-${colIndex}`}
+                      onClick={() =>
+                        handleLetterClick(cell, rowIndex, colIndex)
+                      }
+                      style={{
+                        cursor: 'pointer',
+                        backgroundColor: selectedLetters.some(
+                          ([row, col]) => row === rowIndex && col === colIndex
+                        )
+                          ? 'lightblue'
+                          : cellColor
+                          ? wordColors[cellColor]
+                          : 'inherit',
+                      }}
+                    >
+                      {cell}
+                    </span>
+                  );
+                })
+              )}
+            </div>
+            <ul>
+              {words &&
+                words.map((word, index) => (
+                  <li
+                    className={foundWords.includes(word) ? 'selectedWord' : ''}
+                    key={index}
                   >
-                    {cell}
-                  </span>
-                );
-              })
-            )}
-          </div>
-          <ul>
-            {words &&
-              words.map((word, index) => (
-                <li
-                  className={foundWords.includes(word) ? 'selectedWord' : ''}
-                  key={index}
-                >
-                  {word}
-                </li>
-              ))}
-          </ul>
-        </Section>
+                    {word}
+                  </li>
+                ))}
+            </ul>
+          </Section>
 
-        <div>
-          <RestartBtn onClick={() => restartGame()}>Restart</RestartBtn>
-        </div>
-      </Container>
-    </Main>
+          <div>
+            <RestartBtn onClick={() => restartGame()}>Restart</RestartBtn>
+          </div>
+        </Container>
+      </Main>
+
+      {showModal && (
+        <Modal>
+          <p>Congrats you found all the words! 🥳</p>
+          <div>
+            <button
+              onClick={() => {
+                restartGame();
+                setShowModal(false);
+              }}
+            >
+              Play again
+              <IoRefreshOutline />
+            </button>
+            <Link to='/WordSearch'>
+              <button>Change topic</button>
+            </Link>
+          </div>
+        </Modal>
+      )}
+    </>
   );
 };
 
