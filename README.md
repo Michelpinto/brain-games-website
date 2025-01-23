@@ -1,30 +1,91 @@
-# React + TypeScript + Vite
+# WordSearch and Memory Card Games
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Preview
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="./images/game-wordsearch.png" alt="WordSearch Game" width="45%" style="margin-right: 5%;">
+  <img src="./images/game-memorycard.png" alt="Memory Card Game" width="45%">
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### WordSearch Game
 
-## Expanding the ESLint configuration
+Find hidden words in a grid of letters. Words can be placed horizontally, vertically, or diagonally. As you select letters to form a word, they are highlighted. Correct words are marked as found and listed in the sidebar.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Memory Card Game
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Flip cards to match pairs! The game starts with all cards facing down. Click to reveal two cards at a time. Match all pairs to win with the least number of moves.
+
+
+## Features
+
+### WordSearch
+
+- Dynamic grid of letters with hidden words.
+- Real-time word selection and validation.
+- Highlighting of selected words and found words.
+- List of remaining words to find.
+
+### Memory Card Game
+
+- Configurable number of cards (e.g., 12 cards).
+- Tracks moves and missed attempts.
+- Option to restart the game.
+
+## Technologies Used
+
+- **React.js with ViteJs**: The framework used to build the UI.
+- **TypeScript**: For type safety and better code maintainability.
+- **Styled components CSS**: To ensure the design is clean and responsive.
+
+## Installation
+
+To run this project locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/games-website.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd games-website
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open your browser and go to `http://localhost:3000`.
+
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m 'Add some feature'
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request.
+
